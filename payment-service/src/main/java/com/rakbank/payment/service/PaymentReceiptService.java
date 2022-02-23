@@ -35,7 +35,7 @@ public class PaymentReceiptService {
             throw new StudentFeeManagementException(ErrorCode.BAD_DATA, "Cannot fetch receipt info as orderId = %s is invalid", orderId);
         }
         if(orderPurchaseDto.getOrderStatus().equals(OrderStatus.ORDER_CANCELLED)) {
-            throw new StudentFeeManagementException(ErrorCode.BAD_DATA, "Cannot fetch receipt info for a order that was failed.")
+            throw new StudentFeeManagementException(ErrorCode.BAD_DATA, "Cannot fetch receipt info for a order that was failed.");
         }
         UserTransaction userTransaction = userTransactionService
                 .findByOrderId(orderId)
@@ -54,7 +54,7 @@ public class PaymentReceiptService {
         return paymentReceiptDto;
     }
 
-    @Retry(name = "orderRetry")
+   @Retry(name = "paymentReceiptService")
     public OrderPurchaseDto getOrder(String orderId) {
         try {
             log.info("Fetching order info..");

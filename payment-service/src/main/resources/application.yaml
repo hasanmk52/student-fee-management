@@ -12,22 +12,26 @@ springdoc:
 resilience4j:
   retry:
     instances:
-      studentRetry:
+      userAccountService:
         maxAttempts: 3
         waitDuration: 2s
         retryExceptions:
           - org.springframework.web.client.ResourceAccessException
         ignore-exceptions:
-          - com.rakbank.commons.exception.StudentFeeManagementException
-      orderRetry:
+          - org.springframework.web.client.HttpClientErrorException
+      paymentReceiptService:
         maxRetryAttempts: 3
         waitDuration: 2s
         retryExceptions:
           - org.springframework.web.client.ResourceAccessException
         ignore-exceptions:
-          - com.rakbank.commons.exception.StudentFeeManagementException
+          - org.springframework.web.client.HttpClientErrorException
 
 spring:
+  h2:
+    console.enabled: true
+    datasource:
+      url: jdbc:h2:mem:testdb
   cloud:
     stream:
       function:
@@ -38,8 +42,15 @@ spring:
         paymentProcessor-out-0:
           destination: payment-event
 
+
 management:
+  health:
+    circuitbreakers:
+      enabled: true
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health
+  endpoint:
+    health:
+      show-details: always

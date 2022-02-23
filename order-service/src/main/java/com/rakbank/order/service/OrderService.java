@@ -86,7 +86,7 @@ public class OrderService {
         }
     }
 
-    @Retry(name = "studentRetry", fallbackMethod = "localCacheStudent")
+    @Retry(name = "orderService", fallbackMethod = "localCacheStudent")
     public StudentDto getStudent(String studentId) {
         try {
             log.info("Fetching student..");
@@ -96,7 +96,7 @@ public class OrderService {
         }
     }
 
-    private StudentDto localCacheStudent(String studentId, ResourceAccessException re) {
+    public StudentDto localCacheStudent(String studentId, ResourceAccessException ex) {
         log.info("Returning student={} info from cache", studentId);
         return students.stream()
                 .filter(studentDto -> studentId.equals(studentDto.getStudentId()))

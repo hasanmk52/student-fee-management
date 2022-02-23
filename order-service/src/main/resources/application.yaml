@@ -12,7 +12,7 @@ springdoc:
 resilience4j:
   retry:
     instances:
-      studentRetry:
+      orderService:
         maxAttempts: 3
         waitDuration: 2s
         enable-exponential-backoff: true
@@ -20,9 +20,13 @@ resilience4j:
         retryExceptions:
           - org.springframework.web.client.ResourceAccessException
         ignore-exceptions:
-          - com.rakbank.commons.exception.StudentFeeManagementException
+          - org.springframework.web.client.HttpClientErrorException
 
 spring:
+  h2:
+    console.enabled: true
+    datasource:
+      url: jdbc:h2:mem:testdb
   cloud:
     stream:
       function:
@@ -32,3 +36,9 @@ spring:
           destination: order-event
         paymentEventConsumer-in-0 :
           destination: payment-event
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

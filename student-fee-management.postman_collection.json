@@ -34,7 +34,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/student-service/student/319735",
+							"raw": "http://localhost:8081/student-service/student/377477",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -43,7 +43,7 @@
 							"path": [
 								"student-service",
 								"student",
-								"319735"
+								"377477"
 							]
 						}
 					},
@@ -133,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"studentId\" : \"840715\",\n    \"studentGrade\" : 9,\n    \"amount\" : 900.0\n}",
+							"raw": "{\n    \"studentId\" : \"377477\",\n    \"studentGrade\" : 9,\n    \"amount\" : 900.0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -208,7 +208,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\" : \"840715\",\n    \"cardNumber\" : \"1234-5678-1236-0081\",\n    \"cardType\" : \"MASTERCARD\",\n    \"balance\" : 2000.0\n}",
+							"raw": "{\n    \"userId\" : \"377477\",\n    \"cardNumber\" : \"1234-5678-1236-0081\",\n    \"cardType\" : \"MASTERCARD\",\n    \"balance\" : 2000.0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -235,7 +235,20 @@
 					"name": "Fetch Payment Receipt Info",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/payment-service/payment-receipt/42d5dfb5-9274-4347-adc6-782a5522b386",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"payment-service",
+								"payment-receipt",
+								"42d5dfb5-9274-4347-adc6-782a5522b386"
+							]
+						}
 					},
 					"response": []
 				}

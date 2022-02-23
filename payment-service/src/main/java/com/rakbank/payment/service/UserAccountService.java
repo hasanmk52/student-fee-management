@@ -75,7 +75,7 @@ public class UserAccountService {
     }
 
     //Implement resilience retry, fetch from cached data if retry attempts are exhausted
-    @Retry(name = "studentRetry", fallbackMethod = "localCacheStudent")
+    @Retry(name = "userAccountService", fallbackMethod = "localCacheStudent")
     public StudentDto getStudent(String studentId) {
         try {
             log.info("Fetching student..");
@@ -84,8 +84,7 @@ public class UserAccountService {
             return null;
         }
     }
-
-    private StudentDto localCacheStudent(String studentId, ResourceAccessException re) {
+    public StudentDto localCacheStudent(String studentId, ResourceAccessException ex) {
         log.info("Returning student={} info from cache", studentId);
         return students.stream()
                 .filter(studentDto -> studentId.equals(studentDto.getStudentId()))
