@@ -1,0 +1,45 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /payment-service
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui-payment.html
+
+resilience4j:
+  retry:
+    instances:
+      studentRetry:
+        maxAttempts: 3
+        waitDuration: 2s
+        retryExceptions:
+          - org.springframework.web.client.ResourceAccessException
+        ignore-exceptions:
+          - com.rakbank.commons.exception.StudentFeeManagementException
+      orderRetry:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+        retryExceptions:
+          - org.springframework.web.client.ResourceAccessException
+        ignore-exceptions:
+          - com.rakbank.commons.exception.StudentFeeManagementException
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition : paymentProcessor
+      bindings:
+        paymentProcessor-in-0 :
+          destination: order-event
+        paymentProcessor-out-0:
+          destination: payment-event
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

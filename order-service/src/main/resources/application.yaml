@@ -1,0 +1,34 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /order-service
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui-order.html
+
+resilience4j:
+  retry:
+    instances:
+      studentRetry:
+        maxAttempts: 3
+        waitDuration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        retryExceptions:
+          - org.springframework.web.client.ResourceAccessException
+        ignore-exceptions:
+          - com.rakbank.commons.exception.StudentFeeManagementException
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition : orderSupplier;paymentEventConsumer
+      bindings:
+        orderSupplier-out-0:
+          destination: order-event
+        paymentEventConsumer-in-0 :
+          destination: payment-event
